@@ -5,4 +5,4 @@ gemspec
 gem 'rspec'
 gem 'rake'
 gem 'fog'
-gem 'rubyzip'
+gem 'rubyzip', '> 1.0.0'

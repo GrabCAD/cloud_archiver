@@ -1,4 +1,4 @@
-require 'zip/zip'
+require 'zip'
 require 'cloud_archiver/storage_file'
 
 class CloudArchiver
@@ -7,9 +7,9 @@ class CloudArchiver
   #
   module Archiver
     def self.pack(storage, stream_path, files)
-      Zip::ZipOutputStream.open(stream_path) do |zip|
+      Zip::OutputStream.open(stream_path) do |zip|
         files.each do |file|
-          zip.put_next_entry(file[:name], nil, nil, Zip::ZipEntry::DEFLATED, Zlib::NO_COMPRESSION)
+          zip.put_next_entry(file[:name], nil, nil, Zip::Entry::DEFLATED, Zlib::NO_COMPRESSION)
           remote_stream = StorageFile.new(storage, file[:remote_path])
           remote_stream.each_chunk { |chunk| zip << chunk }
         end
