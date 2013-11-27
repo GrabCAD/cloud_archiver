@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/GrabCAD/cloud_archiver"
   s.licenses = [ "MIT" ]
   s.summary = "Archive files"
+  s.add_runtime_dependency 'rubyzip', '> 1.0.0'
 end

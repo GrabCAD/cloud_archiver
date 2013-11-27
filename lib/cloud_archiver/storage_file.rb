@@ -3,14 +3,13 @@ class CloudArchiver
   # Get the chunk of the file.
   #
   class StorageFile
-    attr_accessor :path, :storage
+    attr_accessor :path
 
-    def initialize(storage, path)
+    def initialize(path)
       @path = path
-      @storage = storage
     end
 
-    def each_chunk
+    def each_chunk(storage)
       storage.get(path) do |chunk, remaining, total|
         yield chunk
       end

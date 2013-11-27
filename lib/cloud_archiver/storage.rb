@@ -28,6 +28,8 @@ class CloudArchiver
       file_in_storage = directory.files.new(key: path, body: file)
       yield file_in_storage if block_given?
       file_in_storage.save
+
+      return file_in_storage
     end
   end
 end

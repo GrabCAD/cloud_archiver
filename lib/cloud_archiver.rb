@@ -15,22 +15,31 @@ class CloudArchiver
   end
 
   def archive(files, key, name, upload_path)
-    stream = Tempfile.new(key)
+    begin
+      archive = Archive.new
+      stream = Tempfile.new(key)
 
-    pack(storage, stream.path, files)
-    upload(storage, stream, upload_path, name)
-  ensure
-    stream.close
-    stream.unlink
+      zipped_files = CloudArchiver::Archiver.pack(storage, stream.path, files)
+      zipped_files.each { |zipped_file| archive.add_file(zipped_file) }
+
+      uploaded_file = CloudArchiver::Uploader.upload(storage, File.open(stream), upload_path, name)
+      archive.uploaded_file = uploaded_file
+    ensure
+      stream.close
+      stream.unlink
+    end
+    return archive
   end
 
-  # Zip the file.
-  def pack(storage, stream_path, files)
-    CloudArchiver::Archiver.pack(storage, stream_path, files)
-  end
+  class Archive
+    attr_accessor :files, :uploaded_file
 
-  # Upload to provider.
-  def upload(storage, stream, upload_path, name)
-    CloudArchiver::Uploader.upload(storage, File.open(stream), upload_path, name)
+    def initialize
+      @files = []
+    end
+
+    def add_file(file)
+      files << file
+    end
   end
 end
