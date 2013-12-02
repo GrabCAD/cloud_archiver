@@ -1,5 +1,5 @@
 ## CloudArchiver
-Downloads files, uses RubyZip gem to zip them together and uploads zipped file to a given upload path. Currently teste only with S3.
+Downloads files, uses RubyZip gem to zip them together and uploads zipped file to a given upload path. Currently tested only with AWS.
 
 ## Usage
 
