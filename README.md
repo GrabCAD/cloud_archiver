@@ -1,12 +1,13 @@
 ## CloudArchiver
-Downloads files, uses RubyZip gem to zip them together and uploads zipped file to a given upload location. 
+Downloads files, creates an archive and uploads archive to a given upload location. 
+
+Uses [Fog](https://github.com/fog/fog) for downloading and uploading files and [RubyZip](https://github.com/rubyzip/rubyzip) to zip files.
 
 Currently tested only with AWS.
 
 ## Usage
 
     # Create a new instance
-    
     cloud_archiver = CloudArchiver.new({
         provider: 'AWS', 
         aws_access_key_id: 	'YOUR_AWS_ACCESS_KEY_ID', 
@@ -19,7 +20,6 @@ Currently tested only with AWS.
     # * unique key for the archive
     # * name for the archive
     # * path where archive will be uploaded
-    
     cloud_archiver.archive(
     	[{ 
     		name: "NAME_OF_THE_FILE", 
