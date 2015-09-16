@@ -1,6 +1,8 @@
 require 'zip'
 require 'cloud_archiver/storage_file'
 
+Zip.unicode_names = true
+
 class CloudArchiver
   #
   # Archive given files into zip.
